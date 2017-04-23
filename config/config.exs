@@ -2,6 +2,16 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+config :test_authable_docker, ecto_repos: [TestAuthableDocker.Repo]
+
+config :test_authable_docker, TestAuthableDocker.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "ecto_simple",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  port: "5432"
+
 config :authable,
   ecto_repos: [Authable.Repo],
   repo: Authable.Repo,
@@ -43,8 +53,8 @@ config :authable,
 
 config :authable, Authable.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "",
-  password: "",
-  database: "",
-  hostname: "",
-  pool_size: 10
+  database: "ecto_simple",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  port: "5432"

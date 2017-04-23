@@ -29,6 +29,9 @@ defmodule TestAuthableDocker.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:authable, ">= 0.0.0"}]
+    [
+      {:ecto, ">= 0.0.0"},
+      {:authable, ">= 0.0.0"}
+    ]
   end
 end
