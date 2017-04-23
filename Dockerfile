@@ -1,30 +1,28 @@
 FROM nebo15/alpine-elixir:latest
+RUN apk add --update make g++
 
 # Maintainers
-MAINTAINER Nebo#15 support@nebo15.com
+MAINTAINER Eugene
 
 # Configure environment variables and other settings
 ENV MIX_ENV=prod \
-    APP_NAME=trump_api \
-    APP_PORT=4000
+    APP_NAME=test_authable_docker
 
 WORKDIR ${HOME}
 
 # Install and compile project dependencies
 COPY mix.* ./
-RUN apk add --update make g++
-RUN mix do deps.get
-RUN mix deps.compile authable
+
+RUN mix deps.get
 RUN mix deps.compile
+RUN mix ecto.create
+RUN mix ecto.migrate -r Authable.Repo
 
 # Add project sources
 COPY . .
 
 # Compile project for Erlang VM
 RUN mix do compile, release --verbose
-
-# Change user to "default"
-USER default
 
 # Allow to read ENV vars for mix configs
 ENV REPLACE_OS_VARS=true
